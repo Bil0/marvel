@@ -1,16 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 
 import { HeroPreview } from '../../../models/';
-
-const apikey = 'f6ef908792f697973acc37c5f0f89c4d';
-const host = 'https://gateway.marvel.com/v1/pubic/'
 
 @Component({
   selector: 'app-heroes-list',
   templateUrl: './heroes-list.component.html',
-  styleUrls: ['./heroes-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroesListComponent implements OnInit {
@@ -117,7 +111,7 @@ export class HeroesListComponent implements OnInit {
     }
   ];
 
-  constructor(protected http: HttpClient) { }
+  constructor() { }
 
   ngOnInit() {
   }
