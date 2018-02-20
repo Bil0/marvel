@@ -5,10 +5,12 @@ import { RouterModule } from '@angular/router';
 import { AppRoutes } from './app.routes';
 
 import { AppComponent } from './app.component';
+import { HeroesListComponent } from './heroes-list/heroes-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeroesListComponent,
   ],
   imports: [
     BrowserModule,
