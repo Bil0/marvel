@@ -1,8 +1,8 @@
 <app-heroes-list-dumb
-  [totalPages]="totalPages | async"
-  [currentPage]="currentPage | async"
+  (onNavigate)="goToHeroDetails($event)"
+  [loading]="loadingHero | async"
   [heroes]="heroes | async"
-></app-heroes-list-dumb>></app-heroes-list-dumb>
+></app-heroes-list-dumb>
 <mat-paginator
   [length]="totalItems | async"
   [pageSize]="limit"

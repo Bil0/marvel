@@ -5,8 +5,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatPaginatorModule,
+  MatListModule,
+  MatDividerModule,
   MatToolbarModule,
   MatButtonModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import { AppRoutes } from './app.routes';
@@ -30,8 +33,11 @@ import { HeroesListDumbComponent } from './heroes-list-dumb/heroes-list-dumb.com
     RouterModule.forRoot(AppRoutes),
     BrowserAnimationsModule,
     MatPaginatorModule,
+    MatListModule,
+    MatDividerModule,
     MatToolbarModule,
     MatButtonModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     HeroesService,

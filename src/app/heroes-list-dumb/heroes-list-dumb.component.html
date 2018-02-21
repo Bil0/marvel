@@ -1,7 +1,12 @@
-<h1>Heroes list</h1>
-<a [routerLink]="['', currentPage + 1]">Next</a>
-currentPage: {{currentPage}}
-totalPages: {{totalPages}}
-<ul *ngFor="let hero of heroes">
-  <li><img src="{{hero.thumbnail}}" alt="{{hero.name}}" />{{hero.name}}</li>
-</ul>
+<mat-nav-list>
+  <h1 mat-subheader>Heroes list</h1>
+  <ng-template ngFor let-hero [ngForOf]="heroes">
+    <mat-list-item (click)="onNavigate.emit(hero.id)">
+      <img matListAvatar src="{{hero.thumbnail}}" alt="{{hero.name}}" />
+      <p matLine>{{hero.name}}</p>
+      <span class="spacer"></span>
+      <mat-spinner *ngIf="loading === hero.id" diameter="30"></mat-spinner>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-template>
+</mat-nav-list>

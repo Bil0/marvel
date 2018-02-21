@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { map, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { map, filter } from 'rxjs/operators';
+import { PageEvent } from '@angular/material';
 
 import { HeroPreview, CharacterDataWrapper, CharacterDataContainer } from '../../../models/';
 import { ENTRIES_PER_PAGE } from '../services/heroes-list.resolver/heroes-list.resolver';
@@ -17,8 +19,10 @@ export class HeroesListComponent implements OnInit {
   heroes: Observable<HeroPreview[]>;
   totalItems: Observable<number>;
   currentPage: Observable<number>;
+  loadingHero = new Subject<number>();
 
   constructor(
+    protected router: Router,
     protected route: ActivatedRoute,
     @Inject(ENTRIES_PER_PAGE) public limit: number
   ) { }
@@ -39,6 +43,11 @@ export class HeroesListComponent implements OnInit {
     this.heroes = result.pipe(map((r: ListingResult) => r.list));
     this.totalItems = result.pipe(map((r: ListingResult) => r.total));
     this.currentPage = this.route.params.pipe(map(({ page }) => parseInt(page || '1', 10) - 1));
+  }
+
+  goToHeroDetails(heroId: number) {
+    this.loadingHero.next(heroId);
+    console.log('load', heroId);
   }
 
   changePage(event: PageEvent) {

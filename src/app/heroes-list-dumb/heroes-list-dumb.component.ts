@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 import { HeroPreview } from '../../../models/';
 
@@ -8,9 +8,12 @@ import { HeroPreview } from '../../../models/';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroesListDumbComponent implements OnInit {
-  @Input() currentPage = 1;
-  @Input() totalPages = 0;
+  @Input() currentPage;
+  @Input() totalPages;
   @Input() heroes: HeroPreview[];
+  @Input() loading;
+
+  @Output() onNavigate = new EventEmitter<number>();
 
   constructor() { }
 
