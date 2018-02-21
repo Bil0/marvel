@@ -6,6 +6,11 @@
       <p matLine>{{hero.name}}</p>
       <span class="spacer"></span>
       <mat-spinner *ngIf="loading === hero.id" diameter="30"></mat-spinner>
+      <mat-icon
+        *ngIf="favorites[hero.id] && loading !== hero.id"
+        color="primary"
+        svgIcon="favorite"
+       ></mat-icon>
     </mat-list-item>
     <mat-divider></mat-divider>
   </ng-template>

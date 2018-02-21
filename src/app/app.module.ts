@@ -12,7 +12,8 @@ import {
   MatProgressSpinnerModule,
   MatDialogModule,
   MatChipsModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatIconModule
 } from '@angular/material';
 
 import { AppRoutes } from './app.routes';
@@ -48,7 +49,8 @@ import { HeroDetailsDialogComponent } from './hero-details-dialog/hero-details-d
     MatProgressSpinnerModule,
     MatDialogModule,
     MatChipsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatIconModule
   ],
   providers: [
     HeroesService,
