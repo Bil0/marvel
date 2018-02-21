@@ -1,3 +1,9 @@
+<mat-checkbox
+  class="checkbox-in-title"
+  color="primary"
+  [checked]="inFavorites"
+  (change)="handleFavorites($event)"
+>In favorites</mat-checkbox>
 <h1 mat-dialog-title>{{hero.name}}</h1>
 <mat-dialog-content>
   <div class="img-wrapper">

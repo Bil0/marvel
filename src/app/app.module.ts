@@ -11,12 +11,13 @@ import {
   MatButtonModule,
   MatProgressSpinnerModule,
   MatDialogModule,
-  MatChipsModule
+  MatChipsModule,
+  MatCheckboxModule
 } from '@angular/material';
 
 import { AppRoutes } from './app.routes';
 
-import { HeroesService } from './services/heroes.service/heroes.service';
+import { HeroesService, MAX_FAVORITES } from './services/heroes.service/heroes.service';
 import { HeroesListResolver, ENTRIES_PER_PAGE } from './services/heroes-list.resolver/heroes-list.resolver';
 import { HeroResolver } from './services/hero.resolver/hero.resolver';
 
@@ -46,13 +47,15 @@ import { HeroDetailsDialogComponent } from './hero-details-dialog/hero-details-d
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCheckboxModule
   ],
   providers: [
     HeroesService,
     HeroesListResolver,
     HeroResolver,
-    { provide: ENTRIES_PER_PAGE, useValue: 20 }
+    { provide: ENTRIES_PER_PAGE, useValue: 20 },
+    { provide: MAX_FAVORITES, useValue: 5 }
   ],
   entryComponents: [
     HeroDetailsDialogComponent
