@@ -10,11 +10,13 @@ import { HeroesListResolver, ENTRIES_PER_PAGE } from './services/heroes-list.res
 
 import { AppComponent } from './app.component';
 import { HeroesListComponent } from './heroes-list/heroes-list.component';
+import { HeroesListDumbComponent } from './heroes-list-dumb/heroes-list-dumb.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeroesListComponent,
+    HeroesListDumbComponent,
   ],
   imports: [
     BrowserModule,

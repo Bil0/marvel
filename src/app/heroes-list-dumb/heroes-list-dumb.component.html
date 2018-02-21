@@ -1,0 +1,7 @@
+<h1>Heroes list</h1>
+<a [routerLink]="['', currentPage + 1]">Next</a>
+currentPage: {{currentPage}}
+totalPages: {{totalPages}}
+<ul *ngFor="let hero of heroes">
+  <li><img src="{{hero.thumbnail}}" alt="{{hero.name}}" />{{hero.name}}</li>
+</ul>

@@ -13,7 +13,7 @@ export class HeroesListResolver implements Resolve<CharacterDataWrapper> {
 
   constructor(
     protected heroesService: HeroesService,
-    @Inject(ENTRIES_PER_PAGE) protected limit
+    @Inject(ENTRIES_PER_PAGE) protected limit: number
   ) { }
 
   resolve(route: ActivatedRouteSnapshot) {
