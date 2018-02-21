@@ -7,6 +7,7 @@ import { PageEvent } from '@angular/material';
 
 import { HeroPreview, CharacterDataWrapper, CharacterDataContainer } from '../../../models/';
 import { ENTRIES_PER_PAGE } from '../services/heroes-list.resolver/heroes-list.resolver';
+import { HeroesService } from 'app/services/heroes.service/heroes.service';
 
 interface ListingResult { total: number, list: HeroPreview[] };
 
@@ -19,19 +20,21 @@ export class HeroesListComponent implements OnInit {
   heroes: Observable<HeroPreview[]>;
   totalItems: Observable<number>;
   currentPage: Observable<number>;
-  loadingHero = new Subject<number>();
+  loadingHero: Observable<number | null>;
   loadingHeroList = new Subject<boolean>();
 
   constructor(
     protected router: Router,
     protected route: ActivatedRoute,
-    @Inject(ENTRIES_PER_PAGE) public limit: number
-  ) { }
+    @Inject(ENTRIES_PER_PAGE) public limit: number,
+    protected heroesService: HeroesService
+  ) {
+    this.loadingHero = this.heroesService.loadingHero.asObservable();
+  }
 
   ngOnInit() {
     const result = this.route.data.pipe(
       tap(() => this.loadingHeroList.next(false)),
-      tap(() => this.loadingHero.next(null)),
       map((response: { heroes: CharacterDataWrapper}) => response.heroes.data),
       map((d: CharacterDataContainer) => ({
         total: d.total,
@@ -49,7 +52,6 @@ export class HeroesListComponent implements OnInit {
   }
 
   goToHeroDetails(heroId: number) {
-    this.loadingHero.next(heroId);
     this.router.navigate([ { outlets: { dialog: [ 'hero', heroId ] } } ]);
   }
 
