@@ -1,1 +1,18 @@
-<router-outlet></router-outlet>
+<mat-toolbar>
+  <img src="/assets/marvel.svg" alt="Marvel logo" />
+  <span class="spacer"></span>
+  <a
+    routerLinkActive="mat-primary"
+    [routerLink]="['']"
+    mat-raised-button
+   >Heroes List</a>&nbsp;
+  <a
+    routerLinkActive="mat-primary"
+    [routerLink]="['favorites']"
+    mat-raised-button
+    mat-raised-button
+  >Favorite Heroes</a>
+</mat-toolbar>
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>

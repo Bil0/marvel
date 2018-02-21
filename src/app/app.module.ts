@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+  MatToolbarModule,
+  MatButtonModule,
 
 import { AppRoutes } from './app.routes';
 
@@ -21,7 +23,10 @@ import { HeroesListDumbComponent } from './heroes-list-dumb/heroes-list-dumb.com
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes),
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
   ],
   providers: [
     HeroesService,
