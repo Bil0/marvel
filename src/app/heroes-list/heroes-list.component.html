@@ -2,4 +2,12 @@
   [totalPages]="totalPages | async"
   [currentPage]="currentPage | async"
   [heroes]="heroes | async"
-></app-heroes-list-dumb>
+></app-heroes-list-dumb>></app-heroes-list-dumb>
+<mat-paginator
+  [length]="totalItems | async"
+  [pageSize]="limit"
+  [pageIndex]="currentPage | async"
+  [hidePageSize]="true"
+  [showFirstLastButtons]="true"
+  (page)="changePage($event)"
+ ></mat-paginator>

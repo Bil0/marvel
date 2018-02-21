@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatPaginatorModule,
   MatToolbarModule,
   MatButtonModule,
 } from '@angular/material';
@@ -27,6 +29,7 @@ import { HeroesListDumbComponent } from './heroes-list-dumb/heroes-list-dumb.com
     HttpClientModule,
     RouterModule.forRoot(AppRoutes),
     BrowserAnimationsModule,
+    MatPaginatorModule,
     MatToolbarModule,
     MatButtonModule,
   ],

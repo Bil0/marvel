@@ -15,10 +15,13 @@ interface ListingResult { total: number, list: HeroPreview[] };
 })
 export class HeroesListComponent implements OnInit {
   heroes: Observable<HeroPreview[]>;
-  totalPages: Observable<number>;
+  totalItems: Observable<number>;
   currentPage: Observable<number>;
 
-  constructor(protected route: ActivatedRoute, @Inject(ENTRIES_PER_PAGE) protected limit: number) { }
+  constructor(
+    protected route: ActivatedRoute,
+    @Inject(ENTRIES_PER_PAGE) public limit: number
+  ) { }
 
   ngOnInit() {
     const result = this.route.data.pipe(
@@ -31,11 +34,14 @@ export class HeroesListComponent implements OnInit {
           thumbnail: `${h.thumbnail.path}.${h.thumbnail.extension}`
         }))
       }))
-    )
+    );
 
     this.heroes = result.pipe(map((r: ListingResult) => r.list));
-    this.totalPages = result.pipe(map((r: ListingResult) => Math.ceil(r.total / this.limit)));
-    this.currentPage = this.route.params.pipe(map(({ page }) => parseInt(page || '1', 10))
-    );
+    this.totalItems = result.pipe(map((r: ListingResult) => r.total));
+    this.currentPage = this.route.params.pipe(map(({ page }) => parseInt(page || '1', 10) - 1));
+  }
+
+  changePage(event: PageEvent) {
+    this.router.navigate(['', event.pageIndex + 1 ]);
   }
 }
