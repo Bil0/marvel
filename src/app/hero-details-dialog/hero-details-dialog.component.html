@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{hero.name}}</h1>
+<mat-dialog-content>
+  <div class="img-wrapper">
+    <img [src]="hero.thumbnail" [alt]="hero.name" />
+  </div>
+  <mat-list>
+    <h3 mat-subheader>Description</h3>
+    <mat-list-item>{{hero.description || 'No description available'}}</mat-list-item>
+    <mat-divider></mat-divider>
+
+    <h3 mat-subheader>Apparitions</h3>
+    <mat-list-item>{{hero.comicsApparitions}}</mat-list-item>
+    <mat-divider></mat-divider>
+
+    <h3 mat-subheader>Comics</h3>
+    <mat-list-item>
+      <span matLine></span>
+      <div *ngFor="let comic of hero.comics" matLine>{{comic}}</div>
+    </mat-list-item>
+  </mat-list>
+  <br />
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" mat-dialog-close>Close</button>
+</mat-dialog-actions>

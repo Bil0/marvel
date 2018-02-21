@@ -1,9 +1,8 @@
 import { Injectable, Inject, InjectionToken } from '@angular/core';
-import { ActivatedRoute, Resolve } from '@angular/router';
+import { ActivatedRoute, Resolve, ActivatedRouteSnapshot } from '@angular/router';
 
 import { CharacterDataWrapper } from '../../../../models/';
 import { HeroesService } from '../heroes.service/heroes.service';
-import { ActivatedRouteSnapshot } from '@angular/router/src/router_state';
 
 
 export const ENTRIES_PER_PAGE = new InjectionToken('Entries per page');

@@ -21,3 +21,30 @@ mat-toolbar {
 .spacer {
   flex: 1 1 auto;
 }
+
+mat-dialog-content {
+  .img-wrapper {
+    float: left;
+    margin-right: 10px;
+
+    img {
+      max-width: 300px;
+      height: auto;
+    }
+  }
+
+  mat-list {
+    width: calc(100% - 320px);
+    float: right;
+    margin-left: 10px;
+
+    &.mat-list .mat-list-item {
+      height: auto;
+      padding-bottom: 5px;
+    }
+  }
+}
+
+mat-dialog-actions {
+  direction: rtl;
+}

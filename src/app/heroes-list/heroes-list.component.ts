@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Inject } from '@angu
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { map, filter } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { PageEvent } from '@angular/material';
 
 import { HeroPreview, CharacterDataWrapper, CharacterDataContainer } from '../../../models/';
@@ -20,6 +20,7 @@ export class HeroesListComponent implements OnInit {
   totalItems: Observable<number>;
   currentPage: Observable<number>;
   loadingHero = new Subject<number>();
+  loadingHeroList = new Subject<boolean>();
 
   constructor(
     protected router: Router,
@@ -29,6 +30,8 @@ export class HeroesListComponent implements OnInit {
 
   ngOnInit() {
     const result = this.route.data.pipe(
+      tap(() => this.loadingHeroList.next(false)),
+      tap(() => this.loadingHero.next(null)),
       map((response: { heroes: CharacterDataWrapper}) => response.heroes.data),
       map((d: CharacterDataContainer) => ({
         total: d.total,
@@ -47,10 +50,11 @@ export class HeroesListComponent implements OnInit {
 
   goToHeroDetails(heroId: number) {
     this.loadingHero.next(heroId);
-    console.log('load', heroId);
+    this.router.navigate([ { outlets: { dialog: [ 'hero', heroId ] } } ]);
   }
 
   changePage(event: PageEvent) {
+    this.loadingHeroList.next(true)
     this.router.navigate(['', event.pageIndex + 1 ]);
   }
 }
