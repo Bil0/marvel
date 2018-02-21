@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators'
 
 import { environment } from './../../../environments/environment'
-import { APIHost, HeroDetails, HeroPreview } from '../../../../models/';
+import { APIHost, CharacterDataWrapper } from '../../../../models/';
 
 @Injectable()
 export class HeroesService {
@@ -13,10 +13,11 @@ export class HeroesService {
 
   constructor(protected http: HttpClient) { }
 
-  getHeroesList(limit: number, offset: number): Observable<any> {
+  getHeroesList(limit: number, offset: number): Observable<CharacterDataWrapper> {
     const path = `v1/public/characters?limit=${limit}&offset=${offset}&apiKey=${this.apiKey}`;
+    const host = `${this.host.protocol}://${this.host.name}:${this.host.port}`;
 
-    return this.http.get(`https://${this.host.name}:${this.host.port}/${path}`);
+    return this.http.get<CharacterDataWrapper>(`${host}/${path}`);
   }
 
 }

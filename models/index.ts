@@ -100,6 +100,7 @@ export interface HeroDetails extends HeroPreview {
 }
 
 export interface APIHost {
+  protocol: string;
   name: string;
   port: number;
 }
