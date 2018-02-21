@@ -1,4 +1,7 @@
 <h1>Heroes list</h1>
-<ul *ngFor="let hero of heroes">
+<a [routerLink]="['', nextPage() | async]">Next</a>
+<ul *ngFor="let hero of heroes | async">
   <li><img src="{{hero.thumbnail}}" alt="{{hero.name}}" />{{hero.name}}</li>
 </ul>
+
+total: {{total | async}}

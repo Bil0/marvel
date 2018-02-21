@@ -14,7 +14,7 @@ export class HeroesService {
   constructor(protected http: HttpClient) { }
 
   getHeroesList(limit: number, offset: number): Observable<CharacterDataWrapper> {
-    const path = `v1/public/characters?limit=${limit}&offset=${offset}&apiKey=${this.apiKey}`;
+    const path = `v1/public/characters?limit=${limit}&offset=${offset}&apikey=${this.apiKey}`;
     const host = `${this.host.protocol}://${this.host.name}:${this.host.port}`;
 
     return this.http.get<CharacterDataWrapper>(`${host}/${path}`);

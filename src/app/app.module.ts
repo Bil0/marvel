@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutes } from './app.routes';
 
 import { HeroesService } from './services/heroes.service/heroes.service';
+import { HeroesListResolver, ENTRIES_PER_PAGE } from './services/heroes-list.resolver/heroes-list.resolver';
 
 import { AppComponent } from './app.component';
 import { HeroesListComponent } from './heroes-list/heroes-list.component';
@@ -21,7 +22,9 @@ import { HeroesListComponent } from './heroes-list/heroes-list.component';
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [
-    HeroesService
+    HeroesService,
+    HeroesListResolver,
+    { provide: ENTRIES_PER_PAGE, useValue: 20 }
   ],
   bootstrap: [AppComponent]
 })

@@ -4,6 +4,6 @@ export const environment = {
   apiHost: {
     protocol: 'https',
     name: 'gateway.marvel.com',
-    port: 433
+    port: 443
   }
 };
