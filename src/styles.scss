@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
+
+body {
+  margin: 0px;
+
+  .main-content {
+    max-width: 800px;
+    margin: auto;
+  }
+}
+
+mat-toolbar {
+  img {
+    height: 100%;
+    width: auto;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
