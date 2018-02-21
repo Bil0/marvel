@@ -97,6 +97,7 @@ export interface HeroPreview {
 export interface HeroDetails extends HeroPreview {
   description: string;
   comics: string[];
+  comicsApparitions: number;
 }
 
 export interface APIHost {
