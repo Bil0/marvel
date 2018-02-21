@@ -1,9 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Inject } from '@angular/core';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { PageEvent } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { map, tap } from 'rxjs/operators';
-import { PageEvent } from '@angular/material';
+import { map } from 'rxjs/operators/map';
+import { tap } from 'rxjs/operators/tap';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 import { HeroPreview, CharacterDataWrapper, CharacterDataContainer } from '../../../models/';
 import { ENTRIES_PER_PAGE } from '../services/heroes-list.resolver/heroes-list.resolver';
@@ -19,6 +21,7 @@ interface ListingResult { total: number, list: HeroPreview[] };
 export class HeroesListComponent implements OnInit {
   heroes: Observable<HeroPreview[]>;
   totalItems: Observable<number>;
+  favorites: Observable<{ [ id: number ]: boolean }[]>;
   currentPage: Observable<number>;
   loadingHero: Observable<number | null>;
   loadingHeroList = new Subject<boolean>();
@@ -46,9 +49,16 @@ export class HeroesListComponent implements OnInit {
       }))
     );
 
-    this.heroes = result.pipe(map((r: ListingResult) => r.list));
+    this.heroes = result.pipe( map((r: ListingResult) => r.list));
     this.totalItems = result.pipe(map((r: ListingResult) => r.total));
     this.currentPage = this.route.params.pipe(map(({ page }) => parseInt(page || '1', 10) - 1));
+
+    this.favorites = combineLatest(this.heroes, this.heroesService.getFavoritesUpdates()).pipe(
+      map(([ heroes, favorites ]) => heroes.reduce((a, c) => {
+        a[c.id] = favorites.indexOf(c.id) >= 0;
+        return a;
+      }, {} as any))
+    );
   }
 
   goToHeroDetails(heroId: number) {

@@ -2,6 +2,7 @@
   (onNavigate)="goToHeroDetails($event)"
   [loading]="loadingHero | async"
   [heroes]="heroes | async"
+  [favorites]="favorites | async"
 ></app-heroes-list-dumb>
 <mat-paginator
   [length]="totalItems | async"
