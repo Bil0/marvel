@@ -67,6 +67,6 @@ export class HeroesListComponent implements OnInit {
 
   changePage(event: PageEvent) {
     this.loadingHeroList.next(true)
-    this.router.navigate(['', event.pageIndex + 1 ]);
+    this.router.navigate(['heroes', event.pageIndex + 1 ]);
   }
 }
