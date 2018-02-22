@@ -48,7 +48,6 @@ export class HeroesService {
         this.favorites.pop();
       }
 
-      this.favorites.unshift(heroId);
       this.favorites = [ heroId ].concat(this.favorites);
       this.updateFavorites.next(this.favorites);
     }
