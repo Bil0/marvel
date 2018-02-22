@@ -1,5 +1,5 @@
 <mat-nav-list>
-  <h1 mat-subheader>Heroes list</h1>
+  <h1 mat-subheader>{{title}}</h1>
   <ng-template ngFor let-hero [ngForOf]="heroes">
     <mat-list-item (click)="onNavigate.emit(hero.id)">
       <img matListAvatar src="{{hero.thumbnail}}" alt="{{hero.name}}" />

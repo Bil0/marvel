@@ -21,12 +21,14 @@ import { AppRoutes } from './app.routes';
 import { HeroesService, MAX_FAVORITES } from './services/heroes.service/heroes.service';
 import { HeroesListResolver, ENTRIES_PER_PAGE } from './services/heroes-list.resolver/heroes-list.resolver';
 import { HeroResolver } from './services/hero.resolver/hero.resolver';
+import { FavoritesResolver } from './services/favorites.resolver/favorites.resolver';
 
 import { AppComponent } from './app.component';
 import { HeroesListComponent } from './heroes-list/heroes-list.component';
 import { HeroesListDumbComponent } from './heroes-list-dumb/heroes-list-dumb.component';
 import { HeroDetailsComponent } from './hero-details/hero-details.component';
 import { HeroDetailsDialogComponent } from './hero-details-dialog/hero-details-dialog.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { HeroDetailsDialogComponent } from './hero-details-dialog/hero-details-d
     HeroesListDumbComponent,
     HeroDetailsComponent,
     HeroDetailsDialogComponent,
+    FavoritesComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { HeroDetailsDialogComponent } from './hero-details-dialog/hero-details-d
     HeroesService,
     HeroesListResolver,
     HeroResolver,
+    FavoritesResolver,
     { provide: ENTRIES_PER_PAGE, useValue: 20 },
     { provide: MAX_FAVORITES, useValue: 5 }
   ],

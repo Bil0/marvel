@@ -1,0 +1,7 @@
+<app-heroes-list-dumb
+  (onNavigate)="goToHeroDetails($event)"
+  title="Favorite heroes"
+  [loading]="loadingHero | async"
+  [heroes]="heroes | async"
+  [favorites]="favorites | async"
+></app-heroes-list-dumb>

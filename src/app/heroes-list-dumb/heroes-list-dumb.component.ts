@@ -12,7 +12,8 @@ export class HeroesListDumbComponent implements OnInit {
   @Input() totalPages;
   @Input() heroes: HeroPreview[];
   @Input() favorites: { [id: number]: boolean }[];
-  @Input() loading;
+  @Input() loading: boolean;
+  @Input() title: string;
 
   @Output() onNavigate = new EventEmitter<number>();
 
