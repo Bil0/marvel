@@ -27,7 +27,9 @@ export class FavoritesComponent implements OnInit {
     protected route: ActivatedRoute,
     protected router: Router,
     protected heroesService: HeroesService
-  ) { }
+  ) {
+    this.loadingHero = this.heroesService.loadingHero.asObservable();
+  }
 
   ngOnInit() {
     const result = this.route.data.pipe(
