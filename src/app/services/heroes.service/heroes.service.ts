@@ -27,8 +27,10 @@ export class HeroesService {
     return this.http.get<CharacterDataWrapper>(`${this.host}/${path}`);
   }
 
-  getHero(heroId: number): Observable<CharacterDataWrapper> {
-    this.loadingHero.next(heroId);
+  getHero(heroId: number, handleLoading = true): Observable<CharacterDataWrapper> {
+    if (handleLoading) {
+      this.loadingHero.next(heroId);
+    }
     const path = `v1/public/characters/${heroId}?apikey=${this.apiKey}`;
     return this.http.get<CharacterDataWrapper>(`${this.host}/${path}`)
      .pipe(tap(() => this.loadingHero.next(null)));

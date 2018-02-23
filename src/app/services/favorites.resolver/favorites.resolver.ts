@@ -14,7 +14,7 @@ export class FavoritesResolver implements Resolve<CharacterDataWrapper> {
 
   resolve(route: ActivatedRouteSnapshot) {
     const heroesObservables = this.heroesService.getFavorites()
-      .map(heroId => this.heroesService.getHero(heroId));
+      .map(heroId => this.heroesService.getHero(heroId, false));
 
     return zipStatic(...heroesObservables).pipe(
       map((heroes: CharacterDataWrapper[]) => heroes.reduce((a, c, i) => {
