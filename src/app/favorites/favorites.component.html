@@ -5,3 +5,4 @@
   [heroes]="heroes | async"
   [favorites]="favorites | async"
 ></app-heroes-list-dumb>
+<div *ngIf="!(heroes | async).length">You have no favorite hero</div>
