@@ -10,7 +10,7 @@ import { MatIconRegistry } from '@angular/material';
 export class AppComponent {
   constructor(router: Router, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     if (router.url === '/') {
-      router.navigate(['', 6])
+  //    router.navigate(['', 6])
     }
 
     [ 'favorite', 'list' ].forEach(icon => {

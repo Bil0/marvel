@@ -4,11 +4,5 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-  apiKey: 'f6ef908792f697973acc37c5f0f89c4d',
-  apiHost: {
-    protocol: 'https',
-    name: 'gateway.marvel.com',
-    port: 443
-  }
+  production: false
 };

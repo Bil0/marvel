@@ -18,7 +18,7 @@ import {
 
 import { AppRoutes } from './app.routes';
 
-import { HeroesService, MAX_FAVORITES } from './services/heroes.service/heroes.service';
+import { HeroesService } from './services/heroes.service/heroes.service';
 import { HeroesListResolver, ENTRIES_PER_PAGE } from './services/heroes-list.resolver/heroes-list.resolver';
 import { HeroResolver } from './services/hero.resolver/hero.resolver';
 import { FavoritesResolver } from './services/favorites.resolver/favorites.resolver';
@@ -60,8 +60,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
     HeroesListResolver,
     HeroResolver,
     FavoritesResolver,
-    { provide: ENTRIES_PER_PAGE, useValue: 20 },
-    { provide: MAX_FAVORITES, useValue: 5 }
+    { provide: ENTRIES_PER_PAGE, useValue: 20 }
   ],
   entryComponents: [
     HeroDetailsDialogComponent

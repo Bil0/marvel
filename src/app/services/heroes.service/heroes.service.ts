@@ -5,34 +5,39 @@ import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/observable/of';
 import { tap } from 'rxjs/operators/tap';
+import { map } from 'rxjs/operators/map';
 
-import { environment as env } from './../../../environments/environment'
 import { CharacterDataWrapper } from '../../../../models/';
 
-export const MAX_FAVORITES = new InjectionToken('Max Favorites');
+export interface FavoritesResponse {
+  sessionId: string;
+  favorites: number[];
+};
 
 @Injectable()
 export class HeroesService {
-  protected host = `${env.apiHost.protocol}://${env.apiHost.name}:${env.apiHost.port}`;
-  protected apiKey: string = env.apiKey;
-  protected favorites: number[] = [ 1009150 ];
-  protected updateFavorites = new BehaviorSubject<number[]>([ 1009150 ]);
+  protected sessionId: string;
+  protected favorites: number[] = [];
+  protected updateFavorites: BehaviorSubject<number[]>;
 
   loadingHero = new Subject<number | null>();
 
-  constructor(protected http: HttpClient, @Inject(MAX_FAVORITES) protected maxFavorites: number) { }
+  constructor(protected http: HttpClient) {
+    this.sessionId = localStorage.getItem('sessionId') || '';
+    this.updateFavorites = new BehaviorSubject<number[]>(this.favorites);
+    this.updateFavorites.subscribe(favorites => this.favorites = favorites);
+    this.getFavorites().subscribe(f => this.updateFavorites.next(f));
+  }
 
   getHeroesList(limit: number, offset: number): Observable<CharacterDataWrapper> {
-    const path = `v1/public/characters?limit=${limit}&offset=${offset}&apikey=${this.apiKey}`;
-    return this.http.get<CharacterDataWrapper>(`${this.host}/${path}`);
+    return this.http.get<CharacterDataWrapper>(`/api/characters?limit=${limit}&offset=${offset}`);
   }
 
   getHero(heroId: number, handleLoading = true): Observable<CharacterDataWrapper> {
     if (handleLoading) {
       this.loadingHero.next(heroId);
     }
-    const path = `v1/public/characters/${heroId}?apikey=${this.apiKey}`;
-    return this.http.get<CharacterDataWrapper>(`${this.host}/${path}`)
+    return this.http.get<CharacterDataWrapper>(`/api/characters/${heroId}`)
      .pipe(tap(() => this.loadingHero.next(null)));
   }
 
@@ -41,29 +46,41 @@ export class HeroesService {
   }
 
   getFavorites() {
-    return [ ...this.favorites ];
+    const headers = { sessionId: this.sessionId || '' };
+    return this.http.get<FavoritesResponse>('/api/favorites', { headers })
+      .pipe(
+        tap(r => {
+          this.sessionId = r.sessionId;
+          localStorage.setItem('sessionId', r.sessionId);
+        }),
+        map(r => r.favorites)
+      );
   }
 
   addToFavorites(heroId: number) {
-    if (!this.inFavorites(heroId)) {
-      if (this.favorites.length >= this.maxFavorites) {
-        this.favorites.pop();
-      }
-
-      this.favorites = [ heroId ].concat(this.favorites);
-      this.updateFavorites.next(this.favorites);
-    }
-
-    return of(true);
+    const headers = { sessionId: this.sessionId || '' };
+    return this.http.post<FavoritesResponse>('/api/favorites', { heroId }, { headers })
+      .pipe(
+        tap(r => {
+          this.sessionId = r.sessionId;
+          localStorage.setItem('sessionId', r.sessionId);
+          this.updateFavorites.next(r.favorites);
+        }),
+        map(r => r.favorites)
+      );
   }
 
   removeFromFavorites(heroId: number) {
-    if (this.inFavorites(heroId)) {
-      this.favorites = this.favorites.filter(f => f !== heroId);
-      this.updateFavorites.next(this.favorites);
-    }
-
-    return of(true);
+    const headers = { sessionId: this.sessionId || '' };
+    return this.http.delete<FavoritesResponse>(`/api/favorites/${heroId}`, { headers })
+      .pipe(
+        tap(r => {
+          this.sessionId = r.sessionId;
+          localStorage.setItem('sessionId', r.sessionId);
+          this.updateFavorites.next(r.favorites);
+        }),
+        map(r => r.favorites)
+      );
   }
 
   inFavorites(heroId: number) {
