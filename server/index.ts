@@ -7,38 +7,37 @@ import { getHero } from './api/get-hero';
 import { getHeroList } from './api/get-hero-list';
 import { addToFavorites } from './api/add-to-favorites';
 import { removeFromFavorites } from './api/remove-from-favorites';
+import * as fs from 'fs';
 
 interface RemoteAPIConfig {
   host: { protocol: 'http' | 'https', name: string, port: number };
   url: string;
-  publicKey: string;
-  privateKey: string;
 };
 
 (async () => {
 
+  const config = JSON.parse(
+    fs.readFileSync(path.normalize(path.join(__dirname, '../../package.json')) , 'utf8'))['config'];
+
+  const { privateKey, publicKey } = JSON.parse(
+    fs.readFileSync(path.normalize(path.join(__dirname, '../../api-keys.json')) , 'utf8'));
+
   const server = new Server({
-    port: 3456,
-    host: 'localhost',
+    port: config.port,
+    host: config.host,
     routes: {
       files: { relativeTo: path.normalize(path.join(__dirname, '../../')) }
     }
   });
 
-  server.app['remoteAPIConfig'] = {
-    host: { protocol: 'https', name: 'gateway.marvel.com', port: 443 },
-    publicKey: 'f6ef908792f697973acc37c5f0f89c4d',
-    url: '/v1/public/characters',
-    maxFavorites: 5
-  } as RemoteAPIConfig;
-
+  server.app['dataSource'] = config.dataSource as RemoteAPIConfig;
   server.app['favorites'] = {};
 
   server.method('generateAuthParams', async function(): Promise<string>  {
     const ts = new Date().getTime();
-    const hash = createHash('md5').update(ts + this.privateKey + this.publicKey).digest('hex');
-    return await `ts=${ts}&apikey=${this.publicKey}&hash=${hash}`;
-  }, { bind: server.app['remoteAPIConfig'] });
+    const hash = createHash('md5').update(ts + privateKey + publicKey).digest('hex');
+    return await `ts=${ts}&apikey=${publicKey}&hash=${hash}`;
+  }, { bind: server.app['dataSource'] });
 
   server.method('getFavorites', async function(sessionId: string): Promise<number[]>  {
     return this[sessionId];
@@ -47,7 +46,7 @@ interface RemoteAPIConfig {
   server.method('addToFavorites', async function(heroId: number, sessionId: string) {
     if (!this['favorites'][sessionId].find(f => f === heroId)) {
       const old = await server.methods['getFavorites'](sessionId);
-      this['favorites'][sessionId] = [ heroId ].concat(old).slice(0, this['remoteAPIConfig'].maxFavorites);
+      this['favorites'][sessionId] = [ heroId ].concat(old).slice(0, this['dataSource'].maxFavorites);
     }
   }, { bind: server.app });
 

@@ -16,7 +16,7 @@ export const getHeroList: ServerRoute = {
   handler: async (request, h) => {
     const limit = request.query.limit;
     const offset = request.query.offset;
-    const { host, url } = request.server.app['remoteAPIConfig'];
+    const { host, url } = request.server.app['dataSource'];
 
     const auth = await request.server.methods['generateAuthParams']();
     const u = `${host.protocol}://${host.name}:${host.port}${url}`;

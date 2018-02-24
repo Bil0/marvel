@@ -14,7 +14,7 @@ export const getHero: ServerRoute = {
   },
   handler: async (request, h) => {
     const heroId = request.params.heroId;
-    const { host, url } = request.server.app['remoteAPIConfig'];
+    const { host, url } = request.server.app['dataSource'];
 
     const auth = await request.server.methods['generateAuthParams']();
     const u = `${host.protocol}://${host.name}:${host.port}${url}`;
