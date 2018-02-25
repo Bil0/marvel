@@ -33,5 +33,6 @@ export class HeroDetailsDialogComponent implements OnInit {
     }
 
     obs.subscribe(() => this.inFavorites = event.checked);
+    return obs;
   }
 }
