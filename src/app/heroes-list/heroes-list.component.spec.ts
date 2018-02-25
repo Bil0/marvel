@@ -8,6 +8,7 @@ import { of } from 'rxjs/observable/of';
 import { HeroesListComponent } from './heroes-list.component';
 import { CharacterDataWrapper, CharacterDataContainer } from '../../../models/index';
 import { HeroesService } from 'app/services/heroes.service/heroes.service';
+import { ENTRIES_PER_PAGE } from 'app/services/heroes-list.resolver/heroes-list.resolver';
 
 describe('HeroesListComponent', () => {
   let component: HeroesListComponent;
@@ -45,7 +46,8 @@ describe('HeroesListComponent', () => {
             } as CharacterDataWrapper }),
             params: of({})
           }
-        }
+        },
+        { provide: ENTRIES_PER_PAGE, useValue: 10 }
       ],
       imports: [
         RouterTestingModule
