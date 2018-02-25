@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { HeroesListDumbComponent } from './heroes-list-dumb.component';
 
@@ -8,7 +9,8 @@ describe('HeroesListDumbComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeroesListDumbComponent ]
+      declarations: [ HeroesListDumbComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));

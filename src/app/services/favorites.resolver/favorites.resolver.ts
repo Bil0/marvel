@@ -13,7 +13,7 @@ export class FavoritesResolver implements Resolve<CharacterDataWrapper> {
 
   constructor(protected heroesService: HeroesService) { }
 
-  resolve(route: ActivatedRouteSnapshot) {
+  resolve() {
     return this.heroesService.getFavorites().pipe(
       map(ids => ids.map(heroId => this.heroesService.getHero(heroId, false))),
       mergeMap(heroesObservables =>
