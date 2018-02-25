@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { HeroDetailsComponent } from 'app/hero-details/hero-details.component';
 import { HeroesService } from '../services/heroes.service/heroes.service';
+import { HeroDetails } from '../../../models/index';
 
 @Component({
   selector: 'app-hero-details-dialog',
@@ -15,8 +16,7 @@ export class HeroDetailsDialogComponent implements OnInit {
   inFavorites: boolean;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public hero: any,
-    protected dialogRef: MatDialogRef<HeroDetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public hero: HeroDetails,
     protected heroesService: HeroesService
   ) { }
 
