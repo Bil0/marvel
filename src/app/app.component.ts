@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
@@ -7,16 +7,22 @@ import { MatIconRegistry } from '@angular/material';
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
-export class AppComponent {
-  constructor(router: Router, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    if (router.url === '/') {
-  //    router.navigate(['', 6])
-    }
+export class AppComponent implements OnInit {
+  constructor(
+    protected router: Router,
+    protected iconRegistry: MatIconRegistry,
+    protected sanitizer: DomSanitizer
+  ) { }
 
+  ngOnInit() {
     [ 'favorite', 'list' ].forEach(icon => {
       const url = `assets/ic_${icon}_white_24px.svg`;
-      iconRegistry.addSvgIcon( icon, sanitizer.bypassSecurityTrustResourceUrl(url));
+      this.iconRegistry.addSvgIcon(icon, this.sanitizer.bypassSecurityTrustResourceUrl(url));
     });
+
+    if (this.router.url === '/') {
+      this.router.navigate([ 'heroes', 6 ])
+    }
 
   }
 }
