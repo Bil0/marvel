@@ -28,7 +28,7 @@ export class HeroDetailsComponent implements OnInit {
           name: d.name,
           thumbnail: `${d.thumbnail.path}.${d.thumbnail.extension}`,
           description: d.description,
-          comics: d.comics.items.splice(0, 3).map(i => i.name),
+          comics: d.comics.items.slice(0, 3).map(i => i.name),
           comicsApparitions: d.comics.available
       }))
     ).subscribe(hero => {
