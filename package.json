@@ -7,10 +7,9 @@
     "start": "ng serve",
     "build": "ng build",
     "prod": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
     "serve": "ng build --prod && tsc -p server/ && node server/dist",
+    "test": "ng test -cc -sr -e prod",
+    "lint": "ng lint"
   },
   "config": {
     "host": "localhost",
