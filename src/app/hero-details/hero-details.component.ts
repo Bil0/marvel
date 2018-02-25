@@ -33,9 +33,8 @@ export class HeroDetailsComponent implements OnInit {
       }))
     ).subscribe(hero => {
       const dialogConfig: MatDialogConfig = { data: hero, width: '70%' };
-      let dialogRef: any;
       setTimeout(() => {
-        dialogRef = this.dialog.open(HeroDetailsDialogComponent, dialogConfig);
+        const dialogRef = this.dialog.open(HeroDetailsDialogComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(() => this.router.navigate([ { outlets: { dialog: null } } ]));
       });
 
