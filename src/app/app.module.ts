@@ -37,7 +37,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
     HeroesListDumbComponent,
     HeroDetailsComponent,
     HeroDetailsDialogComponent,
-    FavoritesComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,
