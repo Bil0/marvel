@@ -32,7 +32,8 @@ export class HeroesListComponent implements OnInit, OnDestroy {
   constructor(
     protected router: Router,
     protected route: ActivatedRoute,
-    protected heroesService: HeroesService
+    protected heroesService: HeroesService,
+    @Inject(ENTRIES_PER_PAGE) public limit: number
   ) {
     this.loadingHero = this.heroesService.loadingHero.asObservable();
   }
