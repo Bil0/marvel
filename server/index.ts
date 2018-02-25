@@ -79,6 +79,7 @@ interface RemoteAPIConfig {
     path: '/{param*}',
     handler: {
       directory: {
+        lookupCompressed: true,
         path: 'dist/',
         index: true
       }
