@@ -23,7 +23,7 @@ export class HeroesService {
   loadingHero = new Subject<number | null>();
 
   constructor(protected http: HttpClient) {
-    this.sessionId = localStorage.getItem('sessionId') || '';
+    this.sessionId = sessionStorage.getItem('sessionId') || '';
     this.updateFavorites = new BehaviorSubject<number[]>(this.favorites);
     this.updateFavorites.subscribe(favorites => this.favorites = favorites);
     this.getFavorites().subscribe(f => this.updateFavorites.next(f));
@@ -51,7 +51,7 @@ export class HeroesService {
       .pipe(
         tap(r => {
           this.sessionId = r.sessionId;
-          localStorage.setItem('sessionId', r.sessionId);
+          sessionStorage.setItem('sessionId', r.sessionId);
         }),
         map(r => r.favorites)
       );
@@ -63,7 +63,7 @@ export class HeroesService {
       .pipe(
         tap(r => {
           this.sessionId = r.sessionId;
-          localStorage.setItem('sessionId', r.sessionId);
+          sessionStorage.setItem('sessionId', r.sessionId);
           this.updateFavorites.next(r.favorites);
         }),
         map(r => r.favorites)
@@ -76,7 +76,7 @@ export class HeroesService {
       .pipe(
         tap(r => {
           this.sessionId = r.sessionId;
-          localStorage.setItem('sessionId', r.sessionId);
+          sessionStorage.setItem('sessionId', r.sessionId);
           this.updateFavorites.next(r.favorites);
         }),
         map(r => r.favorites)
