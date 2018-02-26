@@ -36,6 +36,7 @@
     "@angular/cli": "^1.7.0",
     "@angular/compiler-cli": "^5.2.5",
     "@angular/language-service": "^4.0.0",
+    "@compodoc/compodoc": "^1.0.7",
     "@types/hapi": "^17.0.1",
     "@types/inert": "^4.2.6",
     "@types/jasmine": "2.5.45",
