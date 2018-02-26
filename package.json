@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "prod": "ng build --prod",
-    "serve": "ng build --prod && tsc -p server/ && node server/dist",
+    "build": "ng build --prod && tsc -p server/",
+    "serve": "node server/dist",
     "test": "ng test -cc -sr -e prod",
-    "lint": "ng lint"
+    "lint": "ng lint --type-check",
+    "gendoc": "node_modules/.bin/compodoc --disableCoverage -p src/tsconfig.app.json -s"
   },
   "private": true,
   "dependencies": {
