@@ -11,19 +11,6 @@
     "test": "ng test -cc -sr -e prod",
     "lint": "ng lint"
   },
-  "config": {
-    "host": "localhost",
-    "port": 3456,
-    "dataSource": {
-      "host": {
-        "protocol": "https",
-        "name": "gateway.marvel.com",
-        "port": 443
-      },
-      "url": "/v1/public/characters",
-      "maxFavorites": 5
-    }
-  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^5.2.5",
