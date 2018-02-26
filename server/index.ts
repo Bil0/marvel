@@ -17,10 +17,10 @@ interface RemoteAPIConfig {
 (async () => {
 
   const config = JSON.parse(
-    fs.readFileSync(path.normalize(path.join(__dirname, '../../package.json')) , 'utf8'))['config'];
+    fs.readFileSync(path.normalize(path.join(__dirname, '../config.json')) , 'utf8'));
 
   const { privateKey, publicKey } = JSON.parse(
-    fs.readFileSync(path.normalize(path.join(__dirname, '../../api-keys.json')) , 'utf8'));
+    fs.readFileSync(path.normalize(path.join(__dirname, '../api-keys.json')) , 'utf8'));
 
   const server = new Server({
     port: config.port,
